@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import io from "socket.io-client";
 import { BACKEND_URL } from "../../constant";
 
 class HomePage extends React.Component {
@@ -8,6 +9,21 @@ class HomePage extends React.Component {
     this.state = {
       message: "",
       allMessages: [],
+      count: 0,
+    };
+    this.socket = io("localhost:5000");
+
+    this.socket.on("RECEIVE_MESSAGE", function (data) {
+      console.log(data);
+      addMessage(data);
+    });
+
+    const addMessage = (data) => {
+      this.setState({
+        allMessages: data.slice(Math.max(data.length - 6, 0)),
+      });
+      // this.setState({ count : [...this.state.demo, data] });
+      // console.log(this.state.demo);
     };
   }
 
@@ -23,12 +39,26 @@ class HomePage extends React.Component {
   componentDidMount() {
     this.getAllMessages();
   }
+
+  componentDidUpdate(pP, pS, SS) {
+    // console.log(pP);
+    // if (pS.allMessages.length !== this.state.allMessages) {
+    //   this.getAllMessages();
+    // }
+  }
   handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post(`${BACKEND_URL}/createMessage/`, {
         friendsId: this.props.userFriend.id,
         message: this.state.message,
+      })
+      .then((res) => {
+        console.log(res.data.id);
+        this.socket.emit("SEND_MESSAGE", {
+          friendsId: this.state.username,
+          message: this.state.message,
+        });
       })
       .then(() => this.setState({ message: "" }))
       .catch((e) => console.log(e.message));

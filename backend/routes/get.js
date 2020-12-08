@@ -9,7 +9,7 @@ const {
 
 // Search Customer
 router.get(`${RestApi}/getAllUser`, (req, res) => getAllUsers(res));
-router.get(`${RestApi}/getUserById/:id`, (req, res) => getUserById(req, res));
 router.get(`${RestApi}/getAllMessages`, (req, res) => getAllMessages(res));
+router.get(`${RestApi}/getUserById/:id`, (req, res) => getUserById(req, res));
 
 module.exports = router;

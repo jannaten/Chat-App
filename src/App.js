@@ -1,3 +1,18 @@
+// import React, { Component } from "react";
+// import Chat from "./Chat";
+
+// class App extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <Chat />
+//       </div>
+//     );
+//   }
+// }
+
+// export default App;
+
 import React from "react";
 import "./App.css";
 import axios from "axios";
@@ -99,3 +114,9 @@ class App extends React.Component {
 }
 
 export default App;
+
+// <ChatBox
+// user={this.state.user}
+// onLogOut={this.onLogOut}
+// userFriend={this.state.userFriend}
+// />
