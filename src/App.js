@@ -1,23 +1,8 @@
-// import React, { Component } from "react";
-// import Chat from "./Chat";
-
-// class App extends Component {
-//   render() {
-//     return (
-//       <div>
-//         <Chat />
-//       </div>
-//     );
-//   }
-// }
-
-// export default App;
-
 import React from "react";
 import "./App.css";
 import axios from "axios";
 import { BACKEND_URL } from "./constant";
-import HomePage from "./pages/Homepage/Homepage.component";
+import HomePage from "./pages/Homepage.component";
 
 class App extends React.Component {
   constructor() {
