@@ -9,21 +9,16 @@ class HomePage extends React.Component {
     this.state = {
       message: "",
       allMessages: [],
-      count: 0,
     };
     this.socket = io("localhost:5000");
-
     this.socket.on("RECEIVE_MESSAGE", function (data) {
       console.log(data);
       addMessage(data);
     });
-
     const addMessage = (data) => {
       this.setState({
         allMessages: data.slice(Math.max(data.length - 6, 0)),
       });
-      // this.setState({ count : [...this.state.demo, data] });
-      // console.log(this.state.demo);
     };
   }
 
@@ -40,12 +35,6 @@ class HomePage extends React.Component {
     this.getAllMessages();
   }
 
-  componentDidUpdate(pP, pS, SS) {
-    // console.log(pP);
-    // if (pS.allMessages.length !== this.state.allMessages) {
-    //   this.getAllMessages();
-    // }
-  }
   handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -102,12 +91,12 @@ class HomePage extends React.Component {
                 {el.userId === this.props.userFriend.id ? (
                   <span
                     style={{
-                      color: "#0984e3",
                       border: "1px solid #dfe6e9",
                       padding: "1%",
                     }}
                   >
-                    Me: {el.message}{" "}
+                    <span style={{ color: "#0984e3" }}>Me: </span>
+                    {el.message}{" "}
                     <span style={{ color: "#b2bec3", fontStyle: "italic" }}>
                       sent
                     </span>
@@ -115,12 +104,14 @@ class HomePage extends React.Component {
                 ) : (
                   <span
                     style={{
-                      color: "#d63031",
                       border: "1px solid #dfe6e9",
                       padding: "1%",
                     }}
                   >
-                    {this.props.userFriend.username}: {el.message}
+                    <span style={{ color: "#d63031" }}>
+                      {this.props.userFriend.username}:
+                    </span>{" "}
+                    {el.message}
                   </span>
                 )}
               </p>
