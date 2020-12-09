@@ -99,9 +99,3 @@ class App extends React.Component {
 }
 
 export default App;
-
-// <ChatBox
-// user={this.state.user}
-// onLogOut={this.onLogOut}
-// userFriend={this.state.userFriend}
-// />
