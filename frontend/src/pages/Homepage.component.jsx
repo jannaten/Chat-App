@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import io from "socket.io-client";
-import { BACKEND_URL } from "../constant";
+import { BACKEND_URL, PORT } from "../constant";
 
 class HomePage extends React.Component {
   constructor() {
@@ -10,9 +10,8 @@ class HomePage extends React.Component {
       message: "",
       allMessages: [],
     };
-    this.socket = io("localhost:5000");
+    this.socket = io(`localhost:${PORT}`);
     this.socket.on("RECEIVE_MESSAGE", function (data) {
-      console.log(data);
       addMessage(data);
     });
     const addMessage = (data) => {
@@ -37,16 +36,17 @@ class HomePage extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { userFriend } = this.props;
+    const { message, username } = this.state;
     axios
       .post(`${BACKEND_URL}/createMessage/`, {
-        friendsId: this.props.userFriend.id,
-        message: this.state.message,
+        friendsId: userFriend.id,
+        message,
       })
-      .then((res) => {
-        console.log(res.data.id);
+      .then(() => {
         this.socket.emit("SEND_MESSAGE", {
-          friendsId: this.state.username,
-          message: this.state.message,
+          friendsId: username,
+          message,
         });
       })
       .then(() => this.setState({ message: "" }))
