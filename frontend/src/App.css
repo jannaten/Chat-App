@@ -1,38 +1,100 @@
-.App {
+body {
+  font-family: "Montserrat Condensed";
+  padding: 20px 40px;
+  background-color: rgba(123, 139, 242, 0.1);
+}
+
+p {
+  font-size: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+* {
+  box-sizing: border-box;
+}
+
+.sign-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.sign-in-container {
+  width: 20vw;
+  height: 40vh;
+  display: flex;
+  margin: 0 auto;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 15px;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.btn {
+  border: none;
+  color: #fff;
+  outline: none;
+  display: block;
+  margin-top: 2rem;
+  padding: 0 1.2rem;
+  font-size: 1.2rem;
+  line-height: 3rem;
+  letter-spacing: 0;
+  text-align: center;
+  font-style: normal;
+  border-radius: 1.7rem;
+  text-decoration: none;
+  text-transform: lowercase;
+  -webkit-box-shadow: 0 5px 20px 0 rgba(86, 121, 181, 0.3);
+  box-shadow: 0 5px 20px 0 rgba(86, 121, 181, 0.3);
+  background-image: -webkit-linear-gradient(222deg, #d5a1fe, #7b8bf2);
+  background-image: -o-linear-gradient(222deg, #d5a1fe, #7b8bf2);
+  background-image: linear-gradient(-132deg, #d5a1fe, #7b8bf2);
+  width: 50%;
+  height: 20%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+fieldset {
+  background: none;
+  padding: 0;
+  border: 1px solid transparent;
+  position: relative;
+  border-bottom: 1px solid rgba(141, 133, 190, 0.25);
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+label {
+  font-weight: 400;
+  font-style: normal;
+  width: 100%;
+  display: block;
+  font-size: 1rem;
+  color: #4e206c;
+  letter-spacing: 0;
+  text-transform: lowercase;
+  margin: 0 0 5px 0;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+input {
+  background: none;
+  width: 100%;
+  display: block;
+  border: none;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border-radius: 0;
+  -webkit-appearance: none;
+  height: 25px;
+  outline: none;
 }

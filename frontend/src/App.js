@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 import { BACKEND_URL } from "./constant";
-import HomePage from "./pages/Homepage.component";
+import { HomePage, SignIn } from "./pages/";
 
 class App extends React.Component {
   constructor() {
@@ -66,26 +66,13 @@ class App extends React.Component {
     return (
       <div className="App">
         {this.state.route === "Login" ? (
-          <form onSubmit={this.handleSubmit}>
-            <p>Username</p>
-            <input
-              name="name"
-              type="text"
-              value={this.state.name}
-              onChange={this.handleChange}
-              required
-            />
-            <p>Password</p>
-            <input
-              name="password"
-              type="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              required
-            />
-            <p />
-            <input type="submit" />
-          </form>
+          <SignIn
+            className="sign-in"
+            username={this.state.name}
+            onSubmit={this.handleSubmit}
+            onChange={this.handleChange}
+            password={this.state.password}
+          />
         ) : this.state.route === "HomePage" ? (
           <HomePage
             user={this.state.user}
