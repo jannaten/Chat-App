@@ -63,6 +63,8 @@ class App extends React.Component {
   };
 
   render() {
+    console.log(this.state.name);
+
     return (
       <div className="App">
         {this.state.route === "Login" ? (

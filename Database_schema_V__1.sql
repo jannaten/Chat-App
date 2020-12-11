@@ -38,7 +38,7 @@ CREATE TABLE `messages` (
 
 LOCK TABLES `messages` WRITE;
 /*!40000 ALTER TABLE `messages` DISABLE KEYS */;
-INSERT INTO `messages` VALUES (1,2,'hi'),(2,1,'dad'),(3,2,'adf'),(4,2,'adfadadf'),(5,2,'asdfasd'),(6,2,''),(7,2,'adfads'),(8,2,'adfasdf'),(9,2,'adfadf'),(10,1,'adfasd'),(11,1,'adf'),(12,1,''),(13,1,''),(14,1,''),(15,1,''),(16,1,''),(17,2,'iouhiu');
+INSERT INTO `messages` VALUES (1,2,'hi'),(2,1,'dad'),(3,2,'adf'),(4,2,'adfadadf'),(5,2,'asdfasd'),(7,2,'adfads'),(8,2,'adfasdf'),(9,2,'adfadf'),(10,1,'adfasd'),(11,1,'adf'),(17,2,'iouhiu');
 /*!40000 ALTER TABLE `messages` ENABLE KEYS */;
 UNLOCK TABLES;
 

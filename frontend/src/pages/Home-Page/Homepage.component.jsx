@@ -1,8 +1,9 @@
 import React from "react";
 import axios from "axios";
 import io from "socket.io-client";
+import { FormInput } from "../../Components/";
 import { BACKEND_URL, PORT } from "../../constant";
-
+import { ResetButton, SendButton, SignOutButton } from "../../Components/";
 class HomePage extends React.Component {
   constructor() {
     super();
@@ -72,6 +73,7 @@ class HomePage extends React.Component {
           justifyContent: "center",
         }}
       >
+        <SignOutButton onClick={() => this.props.onLogOut()} />
         <h5>Welcome!!!</h5>
         <h2>{this.props.user.username.toUpperCase()}</h2>
         <div
@@ -80,9 +82,10 @@ class HomePage extends React.Component {
             height: "50vh",
             display: "flex",
             alignItems: "center",
+            borderRadius: "1rem",
             flexDirection: "row",
-            backgroundColor: "#fafafa",
-            border: "1px solid #dfe6e9",
+            backgroundColor: "white",
+            border: "1px solid rgba(72, 32, 108, 0.5)",
           }}
         >
           <div>
@@ -110,9 +113,17 @@ class HomePage extends React.Component {
                         borderBottom: "1px solid #dfe6e9",
                       }}
                     >
-                      <span style={{ color: "#0984e3" }}>Me: </span>
+                      <span style={{ color: "#0984e3", marginRight: "1rem" }}>
+                        Me:{" "}
+                      </span>
                       {el.message}{" "}
-                      <span style={{ color: "#b2bec3", fontStyle: "italic" }}>
+                      <span
+                        style={{
+                          color: "#b2bec3",
+                          fontStyle: "italic",
+                          marginLeft: "0.5rem",
+                        }}
+                      >
                         sent
                       </span>
                     </span>
@@ -129,7 +140,7 @@ class HomePage extends React.Component {
                         borderBottom: "1px solid #dfe6e9",
                       }}
                     >
-                      <span style={{ color: "#d63031" }}>
+                      <span style={{ color: "#d63031", marginRight: "1rem" }}>
                         {this.props.userFriend.username}:
                       </span>{" "}
                       {el.message}
@@ -141,21 +152,15 @@ class HomePage extends React.Component {
           </div>
           <p></p>
         </div>
-        <div
-          style={{
-            margin: "5% 0% ",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-          }}
-        >
-          <input
-            type="text"
+        <div style={{ margin: "5% 0% " }}>
+          <FormInput
             name="message"
+            label="Type your message"
             style={{ margin: "1rem" }}
             value={this.state.message}
             onChange={this.handleChange}
           />
+
           <div
             style={{
               display: "flex",
@@ -164,33 +169,10 @@ class HomePage extends React.Component {
               alignItems: "center",
             }}
           >
-            <button
-              style={{
-                width: "50%",
-                backgroundColor: "white",
-                border: "1px solid #0984e3",
-                borderRadius: "1rem",
-                marginRight: "1rem",
-              }}
-              onClick={this.handleSubmit}
-            >
-              Send
-            </button>
-
-            <button
-              style={{
-                width: "50%",
-                backgroundColor: "white",
-                border: "1px solid #d63031",
-                borderRadius: "1rem",
-              }}
-              onClick={this.handleSubmit}
-            >
-              Reset
-            </button>
+            <SendButton onClick={this.handleSubmit} />
+            <ResetButton />
           </div>
         </div>
-        <button onClick={() => this.props.onLogOut()}>SignOut</button>
       </div>
     );
   }
