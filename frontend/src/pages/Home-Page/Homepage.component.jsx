@@ -76,6 +76,7 @@ class HomePage extends React.Component {
           display: "flex",
           margin: "0% auto",
           alignItems: "center",
+          borderRadius: "1rem",
           flexDirection: "column",
           backgroundColor: "white",
           justifyContent: "center",
