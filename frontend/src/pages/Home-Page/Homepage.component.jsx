@@ -39,19 +39,27 @@ class HomePage extends React.Component {
     e.preventDefault();
     const { userFriend } = this.props;
     const { message, username } = this.state;
-    axios
-      .post(`${BACKEND_URL}/createMessage/`, {
-        friendsId: userFriend.id,
-        message,
-      })
-      .then(() => {
-        this.socket.emit("SEND_MESSAGE", {
-          friendsId: username,
+    if (this.state.message !== "") {
+      axios
+        .post(`${BACKEND_URL}/createMessage/`, {
+          friendsId: userFriend.id,
           message,
-        });
-      })
-      .then(() => this.setState({ message: "" }))
-      .catch((e) => console.log(e.message));
+        })
+        .then(() => {
+          this.socket.emit("SEND_MESSAGE", {
+            friendsId: username,
+            message,
+          });
+        })
+        .then(() => this.setState({ message: "" }))
+        .catch((e) => console.log(e.message));
+    } else {
+      alert("Message can't be empty");
+    }
+  };
+
+  onReset = () => {
+    this.setState({ message: "" });
   };
 
   handleChange = (event) => {
@@ -170,7 +178,7 @@ class HomePage extends React.Component {
             }}
           >
             <SendButton onClick={this.handleSubmit} />
-            <ResetButton />
+            <ResetButton onClick={this.onReset} />
           </div>
         </div>
       </div>
