@@ -20,6 +20,9 @@ class HomePage extends React.Component {
       addSenderDetails(data);
     });
     const addMessage = (data) => {
+      if (this.state.allMessages.length !== data.length) {
+        this.setState({ messagePrompts: [] });
+      }
       this.setState({
         allMessages: data.slice(Math.max(data.length - 6, 0)),
       });
