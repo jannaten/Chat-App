@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import io from "socket.io-client";
-import { FormInput } from "../../Components/";
 import { BACKEND_URL, PORT } from "../../constant";
+import { FormInput, MessageForm } from "../../Components/";
 import { ResetButton, SendButton, SignOutButton } from "../../Components/";
 class HomePage extends React.Component {
   constructor() {
@@ -68,6 +68,9 @@ class HomePage extends React.Component {
   };
 
   render() {
+    const { message, allMessages } = this.state;
+    const { userFriend, user, onLogOut } = this.props;
+    const { handleChange, handleSubmit, onReset } = this;
     return (
       <div
         style={{
@@ -82,92 +85,17 @@ class HomePage extends React.Component {
           justifyContent: "center",
         }}
       >
-        <SignOutButton onClick={() => this.props.onLogOut()} />
+        <SignOutButton onClick={() => onLogOut()} />
         <h5>Welcome!!!</h5>
-        <h2>{this.props.user.username.toUpperCase()}</h2>
-        <div
-          style={{
-            width: "30vw",
-            height: "50vh",
-            display: "flex",
-            alignItems: "center",
-            borderRadius: "1rem",
-            flexDirection: "row",
-            backgroundColor: "white",
-            border: "1px solid rgba(72, 32, 108, 0.5)",
-          }}
-        >
-          <div>
-            {this.state.allMessages.map((el) => {
-              return (
-                <p
-                  key={el.id}
-                  style={{
-                    style: "black",
-                    display: "flex",
-                    flexDirection: "row",
-                    alignContent: "center",
-                  }}
-                >
-                  {el.userId === this.props.userFriend.id ? (
-                    <span
-                      style={{
-                        padding: "1%",
-                        width: "500px",
-                        display: "flex",
-                        flexWrap: "wrap",
-                        flexDirection: "row",
-                        alignContent: "center",
-                        justifyContent: "flex-start",
-                        borderBottom: "1px solid #dfe6e9",
-                      }}
-                    >
-                      <span style={{ color: "#0984e3", marginRight: "1rem" }}>
-                        Me:{" "}
-                      </span>
-                      {el.message}{" "}
-                      <span
-                        style={{
-                          color: "#b2bec3",
-                          fontStyle: "italic",
-                          marginLeft: "0.5rem",
-                        }}
-                      >
-                        sent
-                      </span>
-                    </span>
-                  ) : (
-                    <span
-                      style={{
-                        padding: "1%",
-                        width: "500px",
-                        display: "flex",
-                        flexWrap: "wrap",
-                        flexDirection: "row",
-                        alignContent: "center",
-                        justifyContent: "flex-end",
-                        borderBottom: "1px solid #dfe6e9",
-                      }}
-                    >
-                      <span style={{ color: "#d63031", marginRight: "1rem" }}>
-                        {this.props.userFriend.username}:
-                      </span>{" "}
-                      {el.message}
-                    </span>
-                  )}
-                </p>
-              );
-            })}
-          </div>
-          <p></p>
-        </div>
+        <h2>{user.username.toUpperCase()}</h2>
+        <MessageForm userFriend={userFriend} allMessages={allMessages} />
         <div style={{ margin: "5% 0% " }}>
           <FormInput
             name="message"
+            value={message}
+            onChange={handleChange}
             label="Type your message"
             style={{ margin: "1rem" }}
-            value={this.state.message}
-            onChange={this.handleChange}
           />
 
           <div
@@ -178,8 +106,8 @@ class HomePage extends React.Component {
               alignItems: "center",
             }}
           >
-            <SendButton onClick={this.handleSubmit} />
-            <ResetButton onClick={this.onReset} />
+            <SendButton onClick={handleSubmit} />
+            <ResetButton onClick={onReset} />
           </div>
         </div>
       </div>
