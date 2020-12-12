@@ -1,7 +1,9 @@
 import React from "react";
 import Style from "../style";
 
-export const SignInButton = () => <input className="btn" type="submit" />;
+export const SignInButton = () => (
+  <input className="btn" type="submit" value="sign in" />
+);
 
 export const SendButton = ({ onClick }) => (
   <button className="btn-send" onClick={onClick}>

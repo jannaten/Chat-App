@@ -94,7 +94,7 @@ class HomePage extends React.Component {
     return (
       <HomeScreenContainer>
         <SignOutButton onClick={() => onLogOut()} />
-        <Header subText="Welcome!!!" user={user} />
+        <Header subText="Chat App" user={user} />
         <MessageForm userFriend={userFriend} allMessages={allMessages} />
         {messagePrompts.length !== 0 ? (
           <TypeText messagePrompts={messagePrompts} user={user} />
