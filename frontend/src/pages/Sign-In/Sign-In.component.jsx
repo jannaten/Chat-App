@@ -8,7 +8,6 @@ const SignIn = ({ onSubmit, username, password, onChange }) => (
       type="text"
       label="Username"
       value={username}
-      // value="jannaten"
       onChange={onChange}
       required
     />
@@ -17,7 +16,6 @@ const SignIn = ({ onSubmit, username, password, onChange }) => (
       type="password"
       label="Password"
       value={password}
-      // value="nayem"
       onChange={onChange}
       required
     />

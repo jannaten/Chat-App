@@ -10,15 +10,24 @@ class HomePage extends React.Component {
     this.state = {
       message: "",
       allMessages: [],
+      messagePrompts: [],
     };
     this.socket = io(`localhost:${PORT}`);
     this.socket.on("RECEIVE_MESSAGE", function (data) {
       addMessage(data);
     });
+    this.socket.on("RECEIVE_BY_RECIEVER", function (data) {
+      addSenderDetails(data);
+    });
     const addMessage = (data) => {
       this.setState({
         allMessages: data.slice(Math.max(data.length - 6, 0)),
       });
+    };
+    const addSenderDetails = (data) => {
+      let arr = [];
+      arr.push(data);
+      this.setState({ messagePrompts: arr });
     };
   }
 
@@ -52,7 +61,7 @@ class HomePage extends React.Component {
           });
         })
         .then(() => this.setState({ message: "" }))
-        .catch((e) => console.log(e.message));
+        .catch((e) => console.error(e.message));
     } else {
       alert("Message can't be empty");
     }
@@ -62,15 +71,20 @@ class HomePage extends React.Component {
     this.setState({ message: "" });
   };
 
-  handleChange = (event) => {
+  handleChange = (event, data) => {
     const { value, name } = event.target;
     this.setState({ [name]: value });
+    if (value !== "") {
+      this.socket.emit("SEND_BY_SENDER", data);
+    } else if (value === "") {
+      this.setState({ messagePrompts: [] });
+    }
   };
 
   render() {
-    const { message, allMessages } = this.state;
     const { userFriend, user, onLogOut } = this.props;
     const { handleChange, handleSubmit, onReset } = this;
+    const { message, allMessages, messagePrompts } = this.state;
     return (
       <div
         style={{
@@ -89,11 +103,32 @@ class HomePage extends React.Component {
         <h5>Welcome!!!</h5>
         <h2>{user.username.toUpperCase()}</h2>
         <MessageForm userFriend={userFriend} allMessages={allMessages} />
+        {messagePrompts.length !== 0 ? (
+          <div>
+            {messagePrompts.map((el) => (
+              <div key={el.id}>
+                {user.id === el.rid && el.value.length > 1 ? (
+                  <p key={el.id}>
+                    <i>{el.sender} is typing</i>
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </div>
+        ) : null}
         <div style={{ margin: "5% 0% " }}>
           <FormInput
             name="message"
             value={message}
-            onChange={handleChange}
+            onChange={async (e) => {
+              let obj = {};
+              obj.id = user.id;
+              obj.rid = userFriend.id;
+              obj.sender = user.username;
+              obj.value = e.target.value;
+              obj.reciever = userFriend.username;
+              await handleChange(e, obj);
+            }}
             label="Type your message"
             style={{ margin: "1rem" }}
           />

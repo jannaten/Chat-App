@@ -25,7 +25,6 @@ const io = socket(server);
 const mariaDB = require("./configuration/database_config");
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
   socket.on("SEND_MESSAGE", () => {
     let newArr = [];
     mariaDB
@@ -42,5 +41,8 @@ io.on("connection", (socket) => {
       })
       .then(() => io.emit("RECEIVE_MESSAGE", newArr))
       .catch((err) => console.log(err.message));
+  });
+  socket.on("SEND_BY_SENDER", (data) => {
+    io.emit("RECEIVE_BY_RECIEVER", data);
   });
 });

@@ -86,12 +86,16 @@ a {
   background-image: -webkit-linear-gradient(222deg, #d5a1fe, #7b8bf2);
 }
 .btn-logout {
-  width: 7%;
+  width: 8.5%;
   height: 7%;
   right: 15vw;
   top: -6vh;
   outline: none;
-  display: block;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   cursor: pointer;
   color: #4e206c;
   position: absolute;
