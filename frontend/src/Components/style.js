@@ -41,4 +41,24 @@ export default {
     borderBottom: "1px solid #dfe6e9",
   },
   RecieverHighlight: { color: "#d63031", marginRight: "1rem" },
+  ButtonHolder: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  FormHolder: {
+    margin: "5% 0% ",
+  },
+  HomeScreenHolder: {
+    width: "70vw",
+    height: "100vh",
+    display: "flex",
+    margin: "0% auto",
+    alignItems: "center",
+    borderRadius: "1rem",
+    flexDirection: "column",
+    backgroundColor: "white",
+    justifyContent: "center",
+  },
 };

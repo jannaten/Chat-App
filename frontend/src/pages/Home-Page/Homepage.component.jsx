@@ -2,8 +2,11 @@ import React from "react";
 import axios from "axios";
 import io from "socket.io-client";
 import { BACKEND_URL, PORT } from "../../constant";
-import { FormInput, MessageForm } from "../../Components/";
+import { HomeScreenContainer } from "../../Components/";
+import { ButtonContainer, FormContainer } from "../../Components/";
 import { ResetButton, SendButton, SignOutButton } from "../../Components/";
+import { FormInput, MessageForm, Header, TypeText } from "../../Components/";
+
 class HomePage extends React.Component {
   constructor() {
     super();
@@ -89,40 +92,18 @@ class HomePage extends React.Component {
     const { handleChange, handleSubmit, onReset } = this;
     const { message, allMessages, messagePrompts } = this.state;
     return (
-      <div
-        style={{
-          width: "70vw",
-          height: "100vh",
-          display: "flex",
-          margin: "0% auto",
-          alignItems: "center",
-          borderRadius: "1rem",
-          flexDirection: "column",
-          backgroundColor: "white",
-          justifyContent: "center",
-        }}
-      >
+      <HomeScreenContainer>
         <SignOutButton onClick={() => onLogOut()} />
-        <h5>Welcome!!!</h5>
-        <h2>{user.username.toUpperCase()}</h2>
+        <Header subText="Welcome!!!" user={user} />
         <MessageForm userFriend={userFriend} allMessages={allMessages} />
         {messagePrompts.length !== 0 ? (
-          <div>
-            {messagePrompts.map((el) => (
-              <div key={el.id}>
-                {user.id === el.rid && el.value.length > 1 ? (
-                  <p key={el.id}>
-                    <i>{el.sender} is typing</i>
-                  </p>
-                ) : null}
-              </div>
-            ))}
-          </div>
+          <TypeText messagePrompts={messagePrompts} user={user} />
         ) : null}
-        <div style={{ margin: "5% 0% " }}>
+        <FormContainer>
           <FormInput
             name="message"
             value={message}
+            label="Type your message"
             onChange={async (e) => {
               let obj = {};
               obj.id = user.id;
@@ -132,23 +113,13 @@ class HomePage extends React.Component {
               obj.reciever = userFriend.username;
               await handleChange(e, obj);
             }}
-            label="Type your message"
-            style={{ margin: "1rem" }}
           />
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <ButtonContainer>
             <SendButton onClick={handleSubmit} />
             <ResetButton onClick={onReset} />
-          </div>
-        </div>
-      </div>
+          </ButtonContainer>
+        </FormContainer>
+      </HomeScreenContainer>
     );
   }
 }
