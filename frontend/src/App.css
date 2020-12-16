@@ -160,6 +160,18 @@ h2 {
   justify-content: center;
 }
 
+@media only screen and (max-width: 800px) {
+  .sign-in-container {
+    width: 40vw;
+  }
+  .btn-logout {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
 .btn {
   width: 50%;
   height: 20%;
