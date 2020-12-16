@@ -1,6 +1,6 @@
 export default {
   MessageBox: {
-    width: "30vw",
+    width: "50vw",
     height: "50vh",
     display: "flex",
     flexWrap: "wrap",

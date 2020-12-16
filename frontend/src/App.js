@@ -1,8 +1,8 @@
 import React from "react";
-import "./App.css";
 import axios from "axios";
 import { BACKEND_URL } from "./constant";
 import { HomePage, SignIn } from "./pages/";
+import { AppContainer } from "./Components/";
 
 class App extends React.Component {
   constructor() {
@@ -34,14 +34,13 @@ class App extends React.Component {
   }
 
   handleSubmit = async (event) => {
+    const { users, name, password } = this.state;
     event.preventDefault();
-    const user = this.state.users.find(
-      (el) =>
-        el.username === this.state.name && el.password === this.state.password
+    const user = users.find(
+      (el) => el.username === name && el.password === password
     );
-    const userFriend = this.state.users.find(
-      (el) =>
-        el.username !== this.state.name || el.password !== this.state.password
+    const userFriend = users.find(
+      (el) => el.username !== name || el.password !== password
     );
 
     if (user) {
@@ -63,23 +62,21 @@ class App extends React.Component {
   };
 
   render() {
+    const { handleSubmit, handleChange, onLogOut } = this;
+    const { name, password, userFriend, user, route } = this.state;
     return (
-      <div className="App">
-        {this.state.route === "Login" ? (
+      <AppContainer>
+        {route === "Login" ? (
           <SignIn
-            username={this.state.name}
-            onSubmit={this.handleSubmit}
-            onChange={this.handleChange}
-            password={this.state.password}
+            username={name}
+            password={password}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
           />
-        ) : this.state.route === "HomePage" ? (
-          <HomePage
-            user={this.state.user}
-            onLogOut={this.onLogOut}
-            userFriend={this.state.userFriend}
-          />
+        ) : route === "HomePage" ? (
+          <HomePage user={user} onLogOut={onLogOut} userFriend={userFriend} />
         ) : null}
-      </div>
+      </AppContainer>
     );
   }
 }
